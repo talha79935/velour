@@ -1,0 +1,301 @@
+.page {
+  min-height: 100vh;
+  padding: 48px 0 80px;
+  background: var(--bg-primary);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.backLink:hover {
+  color: var(--gold);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 300;
+  margin-bottom: 32px;
+  color: var(--text-primary);
+}
+
+.error {
+  background: rgba(207, 72, 72, 0.1);
+  border: 1px solid rgba(207, 72, 72, 0.3);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  color: var(--error);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Form Section */
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formCard h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.paymentMethod {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  background: var(--gold-muted);
+}
+
+.paymentMethod input[type="radio"] {
+  margin-top: 4px;
+  accent-color: var(--gold);
+}
+
+.paymentLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.paymentLabel strong {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.paymentLabel span {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Summary Section */
+.summarySection {
+  position: sticky;
+  top: calc(var(--nav-height) + 24px);
+}
+
+.summaryCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.summaryTitle {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--text-primary);
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.itemImage {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.itemBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--gold);
+  color: var(--bg-primary);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.itemMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.itemPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.finalTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.secureNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--success);
+  margin-top: 8px;
+}
+
+/* Success Page */
+.successPage {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.successCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 64px 40px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background: rgba(76, 175, 110, 0.15);
+  color: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin: 0 auto 24px;
+  border: 2px solid var(--success);
+}
+
+.successCard h1 {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.successCard p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.redirectText {
+  color: var(--text-muted) !important;
+  font-size: 13px !important;
+  margin-bottom: 32px !important;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .summarySection {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .formCard {
+    padding: 24px 20px;
+  }
+}

@@ -1,0 +1,227 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--duration-base) var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md), var(--shadow-gold);
+}
+
+/* Image */
+.imageWrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.card:hover .image {
+  transform: scale(1.06);
+}
+
+/* Badges */
+.badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+/* Category tag */
+.categoryTag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(8, 8, 8, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  z-index: 2;
+}
+
+/* Hover actions */
+.actions {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all var(--duration-base) var(--ease);
+}
+
+.card:hover .actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.actionBtn:hover {
+  background: var(--gold-muted);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.wishlisted {
+  color: #cf4848;
+  border-color: rgba(207, 72, 72, 0.4);
+}
+
+.addCart {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+  font-weight: 700;
+}
+
+.addCart:hover {
+  background: var(--gold-light);
+  color: var(--black);
+}
+
+.adding {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+  color: var(--black) !important;
+}
+
+/* Info */
+.info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ratingCount {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.2;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.card:hover .name { color: var(--gold); }
+
+.desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Sizes */
+.sizes {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.size {
+  padding: 3px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sizesMore {
+  padding: 3px 8px;
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Price row */
+.priceRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Stock */
+.stockIndicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stockDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+.stockDot.stockLow {
+  background: var(--warning);
+  animation: pulse-gold 2s infinite;
+}
+
+.stockText {
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}

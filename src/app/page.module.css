@@ -1,0 +1,552 @@
+/* ==================== HERO ==================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 80px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(8, 8, 8, 0.92) 0%,
+    rgba(8, 8, 8, 0.7) 50%,
+    rgba(8, 8, 8, 0.2) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.heroInner {
+  max-width: 680px;
+}
+
+.heroEyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  animation: fadeInUp 0.6s var(--ease) both;
+}
+
+.heroTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(64px, 10vw, 144px);
+  font-weight: 200;
+  line-height: 0.9;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+  animation: fadeInUp 0.6s var(--ease) 0.1s both;
+}
+
+.heroTitle em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.heroSubtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.6s var(--ease) 0.2s both;
+}
+
+.heroActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
+  animation: fadeInUp 0.6s var(--ease) 0.3s both;
+}
+
+.heroStats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.6s var(--ease) 0.4s both;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  padding-right: 40px;
+}
+
+.heroStat::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 32px;
+  background: var(--border-gold);
+}
+
+.heroStat:last-child::after { display: none; }
+
+.heroStatNum {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.heroStatLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 32px;
+  right: var(--container-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  animation: fadeIn 1s 1s both;
+}
+
+.scrollIndicator span {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* ==================== ANNOUNCEMENT STRIP ==================== */
+.strip {
+  background: var(--gold);
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.stripTrack {
+  display: flex;
+  gap: 0;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+
+.stripItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 32px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+.stripDot {
+  font-size: 8px;
+  opacity: 0.5;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==================== CATEGORIES ==================== */
+.catGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.catCard {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  display: block;
+  border: 1px solid var(--border);
+  transition: all var(--duration-base) var(--ease);
+}
+
+.catCard:hover {
+  border-color: var(--border-gold);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+}
+
+.catImageWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.catImage {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+
+.catCard:hover .catImage {
+  transform: scale(1.08);
+}
+
+.catOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.9) 0%, rgba(8, 8, 8, 0.3) 60%, transparent 100%);
+}
+
+.catContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  z-index: 1;
+}
+
+.catSubtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.catTitle {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.catCount {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.catBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 10px 20px;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+  background: var(--gold-muted);
+  backdrop-filter: blur(8px);
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.catBtn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+/* ==================== CRAFT SECTION ==================== */
+.craft {
+  background: var(--bg-secondary);
+}
+
+.craftGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.craftImages {
+  position: relative;
+  height: 600px;
+}
+
+.craftImg1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 75%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+}
+
+.craftImg2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 55%;
+  height: 55%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 2px solid var(--gold);
+}
+
+.craftBadge {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(20%, -50%);
+  background: var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+}
+
+.craftBadgeIcon { margin-bottom: 4px; }
+
+.craftStats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+}
+
+.craftStat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.craftStatNum {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.craftStatLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+/* ==================== TRUST ==================== */
+.trust {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 48px 0;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.trustItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.trustIcon {
+  width: 48px;
+  height: 48px;
+  background: var(--gold-muted);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.trustTitle {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.trustDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==================== TESTIMONIALS ==================== */
+.testimonials {
+  background: var(--bg-secondary);
+}
+
+.testGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: all var(--duration-base) var(--ease);
+}
+
+.testCard:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gold);
+}
+
+.testStars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 16px;
+}
+
+.testText {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.testFooter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testAvatar {
+  width: 40px;
+  height: 40px;
+  background: var(--gold-muted);
+  border: 1px solid var(--border-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.testName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.testMeta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==================== CTA ==================== */
+.cta {
+  position: relative;
+  padding: clamp(80px, 10vw, 160px) 0;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.ctaBg {
+  position: absolute;
+  inset: 0;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== EMPTY STATE ==================== */
+.emptyState {
+  text-align: center;
+  padding: 64px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .craftGrid { grid-template-columns: 1fr; gap: 48px; }
+  .craftImages { height: 400px; }
+  .trustGrid { grid-template-columns: repeat(2, 1fr); }
+  .testGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .hero { align-items: center; padding-bottom: 0; }
+  .heroTitle { font-size: clamp(48px, 12vw, 80px); }
+  .heroStats { gap: 20px; }
+  .catGrid { grid-template-columns: 1fr; }
+  .trustGrid { grid-template-columns: 1fr; }
+  .testGrid { grid-template-columns: 1fr; }
+  .craftBadge { display: none; }
+}
