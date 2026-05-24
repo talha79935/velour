@@ -1,18 +1,33 @@
-import { prisma } from '@/lib/prisma';
+import { sql } from '@/lib/db';
 import AdminLayout from '../AdminLayout';
 import styles from '../admin.module.css';
 
 export const metadata = { title: 'Orders | VELOUR Admin' };
 
 export default async function AdminOrdersPage() {
-  const orders = await prisma.order.findMany({
-    include: {
-      items: {
-        include: { product: true },
-      },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+  // Get orders
+  const orders = await sql`
+    SELECT * FROM "Order" ORDER BY "createdAt" DESC
+  `;
+
+  // Get order items with product details for each order
+  const ordersWithItems = await Promise.all(
+    orders.map(async (order) => {
+      const items = await sql`
+        SELECT oi.*, p."name" as "productName"
+        FROM "OrderItem" oi
+        JOIN "Product" p ON oi."productId" = p."id"
+        WHERE oi."orderId" = ${order.id}
+      `;
+      return {
+        ...order,
+        items: items.map(item => ({
+          ...item,
+          product: { name: item.productName }
+        }))
+      };
+    })
+  );
 
   const statusColors = {
     PENDING: 'pending',
@@ -28,7 +43,7 @@ export default async function AdminOrdersPage() {
         <div className={styles.pageHeader}>
           <div>
             <h1>Orders</h1>
-            <p>{orders.length} total orders</p>
+            <p>{ordersWithItems.length} total orders</p>
           </div>
         </div>
 
@@ -45,13 +60,13 @@ export default async function AdminOrdersPage() {
               </tr>
             </thead>
             <tbody>
-              {orders.length === 0 ? (
+              {ordersWithItems.length === 0 ? (
                 <tr>
                   <td colSpan={6} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '48px' }}>
                     No orders yet. When customers buy, they appear here.
                   </td>
                 </tr>
-              ) : orders.map((order) => (
+              ) : ordersWithItems.map((order) => (
                 <tr key={order.id}>
                   <td><span className={styles.orderId}>#{order.id.slice(-8)}</span></td>
                   <td>
@@ -65,7 +80,7 @@ export default async function AdminOrdersPage() {
                   <td>
                     <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
                       {order.items.map((item) => (
-                        <div key={item.id}>{item.product.name} ×{item.quantity}</div>
+                        <div key={item.id}>{item.product.name} x{item.quantity}</div>
                       ))}
                     </div>
                   </td>
