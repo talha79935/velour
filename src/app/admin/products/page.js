@@ -1,16 +1,24 @@
-import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
-import Image from 'next/image';
+import { sql } from '@/lib/db';
 import AdminLayout from '../AdminLayout';
 import AdminProductsClient from './AdminProductsClient';
-import styles from '../admin.module.css';
 
 export const metadata = { title: 'Manage Products | VELOUR Admin' };
 
+function parseProduct(p) {
+  return {
+    ...p,
+    images: typeof p.images === 'string' ? JSON.parse(p.images) : p.images,
+    sizes: typeof p.sizes === 'string' ? JSON.parse(p.sizes) : p.sizes,
+    colors: typeof p.colors === 'string' ? JSON.parse(p.colors) : p.colors,
+    tags: typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags,
+  };
+}
+
 export default async function AdminProductsPage() {
-  const products = await prisma.product.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
+  const productsRaw = await sql`
+    SELECT * FROM "Product" ORDER BY "createdAt" DESC
+  `;
+  const products = productsRaw.map(parseProduct);
 
   return (
     <AdminLayout>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { prisma } from '@/lib/prisma';
+import { sql } from '@/lib/db';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
@@ -9,21 +9,37 @@ import styles from './page.module.css';
 
 async function getFeaturedProducts() {
   try {
-    return await prisma.product.findMany({
-      where: { featured: true, status: 'ACTIVE' },
-      take: 4,
-      orderBy: { createdAt: 'desc' },
-    });
+    const products = await sql`
+      SELECT * FROM "Product" 
+      WHERE "featured" = true AND "status" = 'ACTIVE' 
+      ORDER BY "createdAt" DESC 
+      LIMIT 4
+    `;
+    return products.map(p => ({
+      ...p,
+      images: typeof p.images === 'string' ? JSON.parse(p.images) : p.images,
+      sizes: typeof p.sizes === 'string' ? JSON.parse(p.sizes) : p.sizes,
+      colors: typeof p.colors === 'string' ? JSON.parse(p.colors) : p.colors,
+      tags: typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags,
+    }));
   } catch { return []; }
 }
 
 async function getNewArrivals() {
   try {
-    return await prisma.product.findMany({
-      where: { isNew: true, status: 'ACTIVE' },
-      take: 4,
-      orderBy: { createdAt: 'desc' },
-    });
+    const products = await sql`
+      SELECT * FROM "Product" 
+      WHERE "isNew" = true AND "status" = 'ACTIVE' 
+      ORDER BY "createdAt" DESC 
+      LIMIT 4
+    `;
+    return products.map(p => ({
+      ...p,
+      images: typeof p.images === 'string' ? JSON.parse(p.images) : p.images,
+      sizes: typeof p.sizes === 'string' ? JSON.parse(p.sizes) : p.sizes,
+      colors: typeof p.colors === 'string' ? JSON.parse(p.colors) : p.colors,
+      tags: typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags,
+    }));
   } catch { return []; }
 }
 

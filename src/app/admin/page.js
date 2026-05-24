@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { sql } from '@/lib/db';
 import Link from 'next/link';
 import AdminLayout from './AdminLayout';
 import { Package, ShoppingCart, Users, TrendingUp, Plus, Eye, Edit } from 'lucide-react';
@@ -6,21 +6,37 @@ import styles from './admin.module.css';
 
 export const metadata = { title: 'Admin Dashboard | VELOUR' };
 
+function parseProduct(p) {
+  return {
+    ...p,
+    images: typeof p.images === 'string' ? JSON.parse(p.images) : p.images,
+    sizes: typeof p.sizes === 'string' ? JSON.parse(p.sizes) : p.sizes,
+    colors: typeof p.colors === 'string' ? JSON.parse(p.colors) : p.colors,
+    tags: typeof p.tags === 'string' ? JSON.parse(p.tags) : p.tags,
+  };
+}
+
 export default async function AdminPage() {
-  const [totalProducts, totalOrders, recentProducts, recentOrders] = await Promise.all([
-    prisma.product.count(),
-    prisma.order.count(),
-    prisma.product.findMany({ orderBy: { createdAt: 'desc' }, take: 5 }),
-    prisma.order.findMany({ orderBy: { createdAt: 'desc' }, take: 5 }),
+  const [productCountResult, orderCountResult, recentProductsRaw, recentOrders, revenueResult, customerCountResult] = await Promise.all([
+    sql`SELECT COUNT(*) as count FROM "Product"`,
+    sql`SELECT COUNT(*) as count FROM "Order"`,
+    sql`SELECT * FROM "Product" ORDER BY "createdAt" DESC LIMIT 5`,
+    sql`SELECT * FROM "Order" ORDER BY "createdAt" DESC LIMIT 5`,
+    sql`SELECT COALESCE(SUM("total"), 0) as total FROM "Order"`,
+    sql`SELECT COUNT(*) as count FROM "User" WHERE "role" = 'CUSTOMER'`,
   ]);
 
-  const revenue = await prisma.order.aggregate({ _sum: { total: true } });
+  const totalProducts = parseInt(productCountResult[0]?.count || 0);
+  const totalOrders = parseInt(orderCountResult[0]?.count || 0);
+  const recentProducts = recentProductsRaw.map(parseProduct);
+  const revenue = parseFloat(revenueResult[0]?.total || 0);
+  const customerCount = parseInt(customerCountResult[0]?.count || 0);
 
   const stats = [
     { icon: Package, label: 'Total Products', value: totalProducts, color: '#c9a84c', href: '/admin/products' },
     { icon: ShoppingCart, label: 'Total Orders', value: totalOrders, color: '#4caf6e', href: '/admin/orders' },
-    { icon: TrendingUp, label: 'Total Revenue', value: `PKR ${(revenue._sum.total || 0).toLocaleString()}`, color: '#e8a84c', href: '/admin/orders' },
-    { icon: Users, label: 'Customers', value: await prisma.user.count({ where: { role: 'CUSTOMER' } }), color: '#4ca8cf', href: '#' },
+    { icon: TrendingUp, label: 'Total Revenue', value: `PKR ${revenue.toLocaleString()}`, color: '#e8a84c', href: '/admin/orders' },
+    { icon: Users, label: 'Customers', value: customerCount, color: '#4ca8cf', href: '#' },
   ];
 
   return (
